@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <title> D3 | Test </title>
   <script type="text/javascript" src="d3/d3.js"></script>
+  <script type="text/javascript" src = "https://raw.githubusercontent.com/mbostock/d3/v3.5.5/d3.layout.js"> </script>
+
   <style>
         path {
           stroke: steelblue;
@@ -47,88 +49,129 @@
 
 
 
-var dataActivity = [44, 38, 50, 66, 53, 81, 44, 42, 60, 50, 37, 72, 80, 46, 40, 41, 87, 14, 50, 50, 37, 33, 60,33]
+// var data = [44, 38, 50, 66, 53, 81, 44, 42, 60, 50, 37, 72, 80, 46, 40, 41, 87, 14, 50, 50, 37, 33, 60,33]
 
-console.log(data.length);
-var w = 900;
-var h = 550;
-var margin = 20;
-y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]);
-x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
+// console.log(data.length);
+// var w = 900;
+// var h = 550;
+// var margin = 20;
+// y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]);
+// x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
 
-var vis = d3.select("body")
-    .append("svg:svg")
-    .attr("width", w)
-    .attr("height", h);
+// var vis = d3.select("body")
+//     .append("svg:svg")
+//     .attr("width", w)
+//     .attr("height", h);
 
-var g = vis.append("svg:g")
-    .attr("transform", "translate(0, 550)");
+// var g = vis.append("svg:g")
+//     .attr("transform", "translate(0, 550)");
 
-var line = d3.svg.line()
-    .x(function(d,i) { return x(i); })
-    .y(function(d) { return -1 * y(d); });
+// var line = d3.svg.line()
+//     .x(function(d,i) { return x(i); })
+//     .y(function(d) { return -1 * y(d); });
 
-g.append("svg:path").attr("d", line(data));
+// g.append("svg:path").attr("d", line(data));
 
-g.append("svg:line")
-    .attr("x1", x(0))
-    .attr("y1", -1 * y(0))
-    .attr("x2", x(w))
-    .attr("y2", -1 * y(0))
+// g.append("svg:line")
+//     .attr("x1", x(0))
+//     .attr("y1", -1 * y(0))
+//     .attr("x2", x(w))
+//     .attr("y2", -1 * y(0))
 
-g.append("svg:line")
-    .attr("x1", x(0))
-    .attr("y1", -1 * y(0))
-    .attr("x2", x(0))
-    .attr("y2", -1 * y(d3.max(data)))
+// g.append("svg:line")
+//     .attr("x1", x(0))
+//     .attr("y1", -1 * y(0))
+//     .attr("x2", x(0))
+//     .attr("y2", -1 * y(d3.max(data)))
 
-g.selectAll(".xLabel")
-    .data(x.ticks(20))
-    .enter().append("svg:text")
-    .attr("class", "xLabel")
-    .text(String)
-    .attr("x", function(d) {
-      // console.log("xLabel")
-      // console.log(x(d))
-      return x(d)
-    })
-    .attr("y", 0)
-    .attr("text-anchor", "middle")
+// g.selectAll(".xLabel")
+//     .data(x.ticks(20))
+//     .enter().append("svg:text")
+//     .attr("class", "xLabel")
+//     .text(String)
+//     .attr("x", function(d) {
+//       // console.log("xLabel")
+//       // console.log(x(d))
+//       return x(d)
+//     })
+//     .attr("y", 0)
+//     .attr("text-anchor", "middle")
 
-g.selectAll(".yLabel")
-    .data(y.ticks(12))
-    .enter().append("svg:text")
-    .attr("class", "yLabel")
-    .text(String)
-    .attr("x", 0)
-    .attr("y", function(d) { return -1 * y(d) })
-    .attr("text-anchor", "left")
-    // .attr("dy", 4)
+// g.selectAll(".yLabel")
+//     .data(y.ticks(12))
+//     .enter().append("svg:text")
+//     .attr("class", "yLabel")
+//     .text(String)
+//     .attr("x", 0)
+//     .attr("y", function(d) { return -1 * y(d) })
+//     .attr("text-anchor", "left")
+//     // .attr("dy", 4)
 
-g.selectAll(".xTicks")
-    .data(x.ticks(24))
-    .enter().append("svg:line")
-    .attr("class", "xTicks")
-    .attr("x1", function(d) {
-      console.log(x(d));
-      return x(d);
-    })
-    .attr("y1", -1 * y(0))
-    .attr("x2", function(d) { return x(d); })
-    .attr("y2", -1 * y(-0.5))
+// g.selectAll(".xTicks")
+//     .data(x.ticks(24))
+//     .enter().append("svg:line")
+//     .attr("class", "xTicks")
+//     .attr("x1", function(d) {
+//       console.log(x(d));
+//       return x(d);
+//     })
+//     .attr("y1", -1 * y(0))
+//     .attr("x2", function(d) { return x(d); })
+//     .attr("y2", -1 * y(-0.5))
 
-g.selectAll(".yTicks")
-    .data(y.ticks(10))
-    .enter().append("svg:line")
-    .attr("class", "yTicks")
-    .attr("y1", function(d) { return -1 * y(d); })
-    .attr("x1", x(-1))
-    .attr("y2", function(d) { return -1 * y(d); })
-    .attr("x2", x(0))
-
-
+// g.selectAll(".yTicks")
+//     .data(y.ticks(10))
+//     .enter().append("svg:line")
+//     .attr("class", "yTicks")
+//     .attr("y1", function(d) { return -1 * y(d); })
+//     .attr("x1", x(-1))
+//     .attr("y2", function(d) { return -1 * y(d); })
+//     .attr("x2", x(0))
 
 
+
+var w = 300,
+    h = 300,
+    r = 100,
+    color = d3.scale.category20c();
+
+    data = [{"label":"one", "value":20},
+            {"label":"two", "value":50},
+            {"label":"three", "value":30}];
+
+    var vis = d3.select("body")
+        .append("svg:svg")              //create the SVG element inside the <body>
+        .data([data])                   //associate our data with the document
+            .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+            .attr("height", h)
+        .append("svg:g")                //make a group to hold our pie chart
+            .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
+
+    var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+        .outerRadius(r);
+
+    var pie = d3.layout.pie()           //this will create arc data for us given a list of values
+        .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
+
+    var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
+        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
+        .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
+            .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+                .attr("class", "slice");    //allow us to style things in the slices (like text)
+
+        arcs.append("svg:path")
+                .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
+                .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+
+        arcs.append("svg:text")                                     //add a label to each slice
+                .attr("transform", function(d) {                    //set the label's origin to the center of the arc
+                //we have to make sure to set these before calling arc.centroid
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+            })
+            .attr("text-anchor", "middle")                          //center the text on it's origin
+            .text(function(d, i) { return data[i].label; });        //get the label from our original data array
 
  </script>
 
