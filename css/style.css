@@ -4,17 +4,29 @@ body{
         font-family: sans-serif;
     }
 
+.nav_container{
+  width:1150px;
+  margin:auto;
+
+
+}
+
+.activity_nav{
+  height:50px;
+  margin-bottom: 20px;
+}
+
+#option{
+  dislay:inline-block;
+  float:right;
+  /*border:solid black 5px;*/
+}
+
 .grid{
         margin-top: 30px;
         text-align: center;
     }
 
-.activtity_nav{
-  margin-top: 100px;
-  padding-top: 40px;
-  background-color: yellow;
-  height:300px;
-}
 
 div .col-6-12{
         padding-left: 20px;
