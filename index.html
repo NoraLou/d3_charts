@@ -34,20 +34,18 @@
 
 </head>
 
+
+
+
+
+
+
+
+
 <body>
 
 
 <script type="text/javascript">
-
-// var byDate = { };
-
-// d3.csv("data/sample_data_071714.csv", function(data){
-//   console.log(data);
-//   console.log(data[0]);
-
-// });
-
-
 
 var data = [44, 38, 50, 66, 53, 81, 44, 42, 60, 50, 37, 72, 80, 46, 40, 41, 87, 14, 50, 50, 37, 33, 60,33]
 
@@ -59,7 +57,7 @@ y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]);
 x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
 
 var vis = d3.select("body")
-    .append("svg:svg")
+    .append("svg")
     .attr("width", w)
     .attr("height", h);
 

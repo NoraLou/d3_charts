@@ -1,0 +1,43 @@
+
+
+body{
+        font-family: sans-serif;
+    }
+
+.grid{
+        margin-top: 30px;
+        text-align: center;
+    }
+
+.activtity_nav{
+  margin-top: 100px;
+  padding-top: 40px;
+  background-color: yellow;
+  height:300px;
+}
+
+div .col-6-12{
+        padding-left: 20px;
+        margin-top: 30px;
+    }
+
+#canvas-line_chart{
+        text-align:center;
+    }
+
+.primary_path {
+       stroke: steelblue;
+       stroke-width: 2;
+       fill: none;
+    }
+
+line {
+      stroke: black;
+    }
+
+text {
+      font-family: Arial;
+      font-size: 9pt;
+    }
+
+
