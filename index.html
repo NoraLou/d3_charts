@@ -3,9 +3,9 @@
 <head>
 
   <meta charset="UTF-8">
-  <title> D3 | Test </title>
+  <title> D3|CHALLANGE</title>
   <script type="text/javascript" src="d3/d3.js"></script>
-  <script type="text/javascript" src = "https://raw.githubusercontent.com/mbostock/d3/v3.5.5/d3.layout.js"> </script>
+
 
   <style>
         path {
@@ -49,91 +49,90 @@
 
 
 
-// var data = [44, 38, 50, 66, 53, 81, 44, 42, 60, 50, 37, 72, 80, 46, 40, 41, 87, 14, 50, 50, 37, 33, 60,33]
+var data = [44, 38, 50, 66, 53, 81, 44, 42, 60, 50, 37, 72, 80, 46, 40, 41, 87, 14, 50, 50, 37, 33, 60,33]
 
-// console.log(data.length);
-// var w = 900;
-// var h = 550;
-// var margin = 20;
-// y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]);
-// x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
+console.log(data.length);
+var w = 900;
+var h = 550;
+var margin = 20;
+y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]);
+x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
 
-// var vis = d3.select("body")
-//     .append("svg:svg")
-//     .attr("width", w)
-//     .attr("height", h);
+var vis = d3.select("body")
+    .append("svg:svg")
+    .attr("width", w)
+    .attr("height", h);
 
-// var g = vis.append("svg:g")
-//     .attr("transform", "translate(0, 550)");
+var g = vis.append("svg:g")
+    .attr("transform", "translate(0, 550)");
 
-// var line = d3.svg.line()
-//     .x(function(d,i) { return x(i); })
-//     .y(function(d) { return -1 * y(d); });
+var line = d3.svg.line()
+    .x(function(d,i) { return x(i); })
+    .y(function(d) { return -1 * y(d); });
 
-// g.append("svg:path").attr("d", line(data));
+g.append("svg:path").attr("d", line(data));
 
-// g.append("svg:line")
-//     .attr("x1", x(0))
-//     .attr("y1", -1 * y(0))
-//     .attr("x2", x(w))
-//     .attr("y2", -1 * y(0))
+g.append("svg:line")
+    .attr("x1", x(0))
+    .attr("y1", -1 * y(0))
+    .attr("x2", x(w))
+    .attr("y2", -1 * y(0))
 
-// g.append("svg:line")
-//     .attr("x1", x(0))
-//     .attr("y1", -1 * y(0))
-//     .attr("x2", x(0))
-//     .attr("y2", -1 * y(d3.max(data)))
+g.append("svg:line")
+    .attr("x1", x(0))
+    .attr("y1", -1 * y(0))
+    .attr("x2", x(0))
+    .attr("y2", -1 * y(d3.max(data)))
 
-// g.selectAll(".xLabel")
-//     .data(x.ticks(20))
-//     .enter().append("svg:text")
-//     .attr("class", "xLabel")
-//     .text(String)
-//     .attr("x", function(d) {
-//       // console.log("xLabel")
-//       // console.log(x(d))
-//       return x(d)
-//     })
-//     .attr("y", 0)
-//     .attr("text-anchor", "middle")
+g.selectAll(".xLabel")
+    .data(x.ticks(20))
+    .enter().append("svg:text")
+    .attr("class", "xLabel")
+    .text(String)
+    .attr("x", function(d) {
+      // console.log("xLabel")
+      // console.log(x(d))
+      return x(d)
+    })
+    .attr("y", 0)
+    .attr("text-anchor", "middle")
 
-// g.selectAll(".yLabel")
-//     .data(y.ticks(12))
-//     .enter().append("svg:text")
-//     .attr("class", "yLabel")
-//     .text(String)
-//     .attr("x", 0)
-//     .attr("y", function(d) { return -1 * y(d) })
-//     .attr("text-anchor", "left")
-//     // .attr("dy", 4)
+g.selectAll(".yLabel")
+    .data(y.ticks(12))
+    .enter().append("svg:text")
+    .attr("class", "yLabel")
+    .text(String)
+    .attr("x", 0)
+    .attr("y", function(d) { return -1 * y(d) })
+    .attr("text-anchor", "left")
+    // .attr("dy", 4)
 
-// g.selectAll(".xTicks")
-//     .data(x.ticks(24))
-//     .enter().append("svg:line")
-//     .attr("class", "xTicks")
-//     .attr("x1", function(d) {
-//       console.log(x(d));
-//       return x(d);
-//     })
-//     .attr("y1", -1 * y(0))
-//     .attr("x2", function(d) { return x(d); })
-//     .attr("y2", -1 * y(-0.5))
+g.selectAll(".xTicks")
+    .data(x.ticks(24))
+    .enter().append("svg:line")
+    .attr("class", "xTicks")
+    .attr("x1", function(d) {
+      console.log(x(d));
+      return x(d);
+    })
+    .attr("y1", -1 * y(0))
+    .attr("x2", function(d) { return x(d); })
+    .attr("y2", -1 * y(-0.5))
 
-// g.selectAll(".yTicks")
-//     .data(y.ticks(10))
-//     .enter().append("svg:line")
-//     .attr("class", "yTicks")
-//     .attr("y1", function(d) { return -1 * y(d); })
-//     .attr("x1", x(-1))
-//     .attr("y2", function(d) { return -1 * y(d); })
-//     .attr("x2", x(0))
+g.selectAll(".yTicks")
+    .data(y.ticks(10))
+    .enter().append("svg:line")
+    .attr("class", "yTicks")
+    .attr("y1", function(d) { return -1 * y(d); })
+    .attr("x1", x(-1))
+    .attr("y2", function(d) { return -1 * y(d); })
+    .attr("x2", x(0))
 
 
-
-var w = 300,
-    h = 300,
-    r = 100,
-    color = d3.scale.category20c();
+var w = 300,                        //width
+    h = 300,                            //height
+    r = 100,                            //radius
+    color = d3.scale.category20c();     //builtin range of colors
 
     data = [{"label":"one", "value":20},
             {"label":"two", "value":50},
@@ -172,6 +171,21 @@ var w = 300,
             })
             .attr("text-anchor", "middle")                          //center the text on it's origin
             .text(function(d, i) { return data[i].label; });        //get the label from our original data array
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  </script>
 
