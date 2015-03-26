@@ -1,65 +1,212 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-
-  <meta charset="UTF-8">
-  <title> D3|CHALLANGE</title>
-  <script type="text/javascript" src="d3/d3.js"></script>
-
-
-  <style>
-        path {
-          stroke: steelblue;
-          stroke-width: 2;
-          fill: none;
-      }
-
-      line {
-          stroke: black;
-      }
-
-      text {
-          font-family: Arial;
-          font-size: 9pt;
-      }
-      .yLabel{
-        margin-left:30px;
-      }
-
-      .yTicks{
-          margin-left:14px;
-      }
-
-  </style>
-
-</head>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>D3 | Challange </title>
+    <link rel="stylesheet" href="css/simplegrid.css" media="screen" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css"/>
 
 
-
-
-
-
-
-
+    <script type="text/javascript" src="d3/d3.js"></script>
+  </head>
 
 <body>
+
+    <div class="nav_container">
+       <div class = "activity_nav">
+                <h3>Activity</h3>
+                <!-- <ul ng-init="tab = 1">
+                        <li ng-class="{active:tab===1}"><a ng-click="tab = 1">ONE DAY</a></li>
+                        <li ng-class="{active:tab===2}"><a ng-click="tab = 2">TWO DAY</a></li>
+                        <li ng-class="{active:tab===3}"><a ng-click="tab = 3">THREE DAY</a></li>
+                </ul> -->
+
+                <div id="option">
+                    <input name="updateButton"
+                            type="button"
+                            value="Update"
+                            onclick="updateData()" />
+                </div><!-- option -->
+        </div><!-- activity_nav -->
+    </div><!--  nav-container  -->
+
+   <div id="canvas-line_chart">
+   </div>
+
+
+    <div class="grid">
+        <div class="col-6-12">
+           <div class="content">
+            <div id="segments">
+                <h3>Segments</h3>
+                <h5>All</h5>
+                <h5>Male</h5>
+                <h5>Female</h5>
+            </div><!-- segments -->
+           </div><!-- content -->
+        </div><!-- col-6-12 -->
+
+        <div class="col-6-12">
+           <div class="content">
+                <div id= "canvas-pie_chart">
+                </div>
+           </div>
+        </div><!-- col-6-12 -->
+    </div><!-- grid -->
+
 
 
 <script type="text/javascript">
 
+
+var dayHours = {};
+
+
+//function to convert one-day of data into asssoicate array of calcualations per hour.
+function formatData(){
+
+    d3.csv("sample_data_071714.csv", function(error, data) {
+
+        data.forEach(function(d) {
+            var newTime = d.Time.replace(/:/g, '');
+            d.Time = militaryTime(newTime);
+
+
+            d.Activity = Number(d.Activity)
+
+            if (String(d.Time).length === 3){
+
+                var key = Number((String(d.Time).slice(0,1)));
+                if(key in dayHours){
+                    dayHours[key].Activity = dayHours[key].Activity + d.Activity
+                }else{
+                    dayHours[key] = {Activity: d.Activity}
+                }
+
+                if(d.Gender === "female"){
+                dayHours[key].Female = (dayHours[key].Female || 0) + 1;
+                }
+                if(d.Gender === "male"){
+                  dayHours[key].Male = (dayHours[key].Male || 0) + 1;
+                }
+                if(d.Device === "mobile"){
+                  dayHours[key].Mobile = (dayHours[key].Mobile || 0) + 1;
+                }
+                if(d.Device === "tablet"){
+                  dayHours[key].Tablet = (dayHours[key].Tablet || 0) + 1;
+                }
+                if(d.Device === "desktop"){
+                  dayHours[key].Desktop= (dayHours[key].Desktop || 0) + 1;
+                }
+            }
+
+            if (String(d.Time).length === 4 && (String(d.Time)).slice(0,1) === "1"){
+                var key = Number((String(d.Time).slice(0,2)));
+                if(key in dayHours){
+                    dayHours[key].Activity = dayHours[key].Activity + d.Activity
+                }else{
+                    dayHours[key] = {Activity: d.Activity }
+                }
+
+                if(d.Gender === "female"){
+                    dayHours[key].Female = (dayHours[key].Female || 0) + 1;
+                }
+                if(d.Gender === "male"){
+                    dayHours[key].Male = (dayHours[key].Male || 0) + 1;
+                }
+                if(d.Device === "mobile"){
+                    dayHours[key].Mobile = (dayHours[key].Mobile || 0) + 1;
+                }
+                if(d.Device === "tablet"){
+                    dayHours[key].Tablet = (dayHours[key].Tablet || 0) + 1;
+                }
+                if(d.Device === "desktop"){
+                    dayHours[key].Desktop= (dayHours[key].Desktop || 0) + 1;
+                }
+             }
+
+            if (String(d.Time).length === 4 && (String(d.Time)).slice(0,1) === "2"){
+                var key = Number((String(d.Time).slice(0,2)));
+                if(key in dayHours){
+                    dayHours[key].Activity = dayHours[key].Activity + d.Activity
+                }else{
+                    dayHours[key] = {Activity: d.Activity }
+                }
+
+                if(d.Gender === "female"){
+                    dayHours[key].Female = (dayHours[key].Female || 0) + 1;
+                }
+                if(d.Gender === "male"){
+                    dayHours[key].Male = (dayHours[key].Male || 0) + 1;
+                }
+                if(d.Device === "mobile"){
+                    dayHours[key].Mobile = (dayHours[key].Mobile || 0) + 1;
+                }
+                if(d.Device === "tablet"){
+                    dayHours[key].Tablet = (dayHours[key].Tablet || 0) + 1;
+                }
+                if(d.Device === "desktop"){
+                    dayHours[key].Desktop= (dayHours[key].Desktop || 0) + 1;
+              }
+           }
+
+        });
+
+
+    var totalRows = data.length;
+
+    for(var hour in dayHours){
+    var obj = dayHours[hour];
+
+        if(obj.hasOwnProperty("Activity")){
+          var totalActive = obj.Activity;
+          var average = totalActive/totalRows;
+              dayHours[hour].Average = average;
+        }
+    }
+     console.log(dayHours);
+    });
+}
+
+
+//Helper function to convert AM/PM to military time for calculation.
+function militaryTime(time){
+  if(time.slice(time.length-2) === "PM"){
+     var nightTime = Number(time.slice(0,time.length-3));
+     if (nightTime <1200)
+        nightTime += 1200;
+     return nightTime;
+
+  }else{
+    var dayTime = Number(time.slice(0,time.length-3));
+    if (dayTime >= 1200 )
+         dayTime += 1200;
+    return dayTime;
+  }
+
+
+}
+
+
+
+
+
+
+/// DRAWING D3 CHARTS WITH DUMMY DATA
+
 var data = [44, 38, 50, 66, 53, 81, 44, 42, 60, 50, 37, 72, 80, 46, 40, 41, 87, 14, 50, 50, 37, 33, 60,33]
 
-console.log(data.length);
-var w = 900;
-var h = 550;
+var w = 1150;
+var h = 575;
 var margin = 20;
 y = d3.scale.linear().domain([0, d3.max(data)]).range([0 + margin, h - margin]);
 x = d3.scale.linear().domain([0, data.length]).range([0 + margin, w - margin]);
 
-var vis = d3.select("body")
-    .append("svg")
+var vis = d3.select("#canvas-line_chart")
+    .append("svg:svg")
     .attr("width", w)
-    .attr("height", h);
+    .attr("height", h)
 
 var g = vis.append("svg:g")
     .attr("transform", "translate(0, 550)");
@@ -68,7 +215,8 @@ var line = d3.svg.line()
     .x(function(d,i) { return x(i); })
     .y(function(d) { return -1 * y(d); });
 
-g.append("svg:path").attr("d", line(data));
+g.append("svg:path").attr("d", line(data))
+    .attr("class", "primary_path");
 
 g.append("svg:line")
     .attr("x1", x(0))
@@ -88,8 +236,6 @@ g.selectAll(".xLabel")
     .attr("class", "xLabel")
     .text(String)
     .attr("x", function(d) {
-      // console.log("xLabel")
-      // console.log(x(d))
       return x(d)
     })
     .attr("y", 0)
@@ -110,7 +256,6 @@ g.selectAll(".xTicks")
     .enter().append("svg:line")
     .attr("class", "xTicks")
     .attr("x1", function(d) {
-      console.log(x(d));
       return x(d);
     })
     .attr("y1", -1 * y(0))
@@ -127,64 +272,54 @@ g.selectAll(".yTicks")
     .attr("x2", x(0))
 
 
-var w = 300,                        //width
+
+    var w = 300,                        //width
     h = 300,                            //height
     r = 100,                            //radius
     color = d3.scale.category20c();     //builtin range of colors
 
-    data = [{"label":"one", "value":20},
-            {"label":"two", "value":50},
-            {"label":"three", "value":30}];
+    data = [{"label":"mobile", "value":20},
+            {"label":"desktop", "value":50},
+            {"label":"tablet", "value":30}];
 
-    var vis = d3.select("body")
-        .append("svg:svg")              //create the SVG element inside the <body>
-        .data([data])                   //associate our data with the document
-            .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
+    var vis = d3.select("#canvas-pie_chart")
+        .append("svg")
+        .data([data])
+            .attr("width", w)
             .attr("height", h)
-        .append("svg:g")                //make a group to hold our pie chart
+        .append("svg:g")
             .attr("transform", "translate(" + r + "," + r + ")")    //move the center of the pie chart from 0, 0 to radius, radius
 
-    var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
+    var arc = d3.svg.arc()
         .outerRadius(r);
 
-    var pie = d3.layout.pie()           //this will create arc data for us given a list of values
-        .value(function(d) { return d.value; });    //we must tell it out to access the value of each element in our data array
+    var pie = d3.layout.pie()
+        .value(function(d) { return d.value; });
 
-    var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
-        .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties)
-        .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
-            .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-                .attr("class", "slice");    //allow us to style things in the slices (like text)
+    var arcs = vis.selectAll("g.slice")
+        .data(pie)
+        .enter()
+            .append("svg:g")
+                .attr("class", "slice");
 
         arcs.append("svg:path")
-                .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
-                .attr("d", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+                .attr("fill", function(d, i) { return color(i); } )
+                .attr("d", arc);
 
-        arcs.append("svg:text")                                     //add a label to each slice
-                .attr("transform", function(d) {                    //set the label's origin to the center of the arc
-                //we have to make sure to set these before calling arc.centroid
+        arcs.append("svg:text")
+                .attr("transform", function(d) {
                 d.innerRadius = 0;
                 d.outerRadius = r;
-                return "translate(" + arc.centroid(d) + ")";        //this gives us a pair of coordinates like [50, 50]
+                return "translate(" + arc.centroid(d) + ")";
             })
-            .attr("text-anchor", "middle")                          //center the text on it's origin
-            .text(function(d, i) { return data[i].label; });        //get the label from our original data array
+            .attr("text-anchor", "middle")
+            .text(function(d, i) { return data[i].label; });
+
+    </script>
+  </body>
+</html>
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
- </script>
-
-</body>
